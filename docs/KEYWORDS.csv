@@ -1,0 +1,67 @@
+keyword,cluster,priority,destination,evidence_or_rationale,monthly_volume,keyword_difficulty
+windows to iphone wifi file transfer,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+transfer files from PC to iPhone without iTunes,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+download PC files on iPhone without an app,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+transfer Windows files to iPhone Safari,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+Windows to iPhone file transfer without cable,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+PC to iPhone local network transfer,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+download a Windows folder on iPhone,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+large file transfer PC to iPhone without cloud,Windows to iPhone,P1,site/guides/windows-to-iphone.html,Platform transfer intent,not measured,not measured
+transfer files from Ubuntu to iPhone,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+Ubuntu to iPhone over WiFi,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+download Ubuntu files on iPhone Safari,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+Linux to iPhone file transfer without USB,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+download Linux folder on iPhone,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+Debian to iPhone file transfer,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+Linux Mint to iPhone file sharing,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+Fedora to iPhone local file transfer,Ubuntu and Linux to iPhone,P1,site/guides/ubuntu-to-iphone.html,Linux/iOS interoperability questions observed,not measured,not measured
+local file sharing without cloud,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+password protected folder sharing over WiFi,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+read only HTTPS file server,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+secure local file sharing open source,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+share one folder over local network,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+temporary folder sharing with password,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+local browser file downloads,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+offline file transfer from computer to phone,Local folder privacy,P1,site/guides/private-local-sharing.html,Direct match to read-only local scope,not measured,not measured
+transfer files from Mac to Android over WiFi,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+download Mac files on Android browser,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+Mac to Android without USB,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+Apple Silicon local file server,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+Mac folder sharing with Android,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+macOS HTTPS file server,macOS and Android,P2,site/guides/mac-to-android.html,Cross-ecosystem receiver workflow,not measured,not measured
+download Windows files on Android browser,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+PC to Android without cable,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+Windows folder browser on Android,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+PC to phone file transfer without app,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+computer to phone WiFi file sharing,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+LAN file download on Android,Windows and Android,P2,docs/WORKFLOWS.md,Computer-to-browser download scope,not measured,not measured
+iPhone local HTTPS certificate trust,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+Safari local file server certificate warning,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+Safari local file server cross site requests blocked,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+iPhone cannot connect to PC on same WiFi,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+local file sharing guest WiFi client isolation,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+file download interrupted computer sleep,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+Linux file server permission denied,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+choose WiFi interface file server,Setup and troubleshooting,P2,docs/TROUBLESHOOTING.md,Reduce actual setup failure,not measured,not measured
+Go local file server password protected,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+portable file sharing executable,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+open source read only file sharing,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+self hosted local file browser,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+HTTPS folder server Golang,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+cross platform local folder sharing,Open-source developer discovery,P2,README.md,Relevant GitHub product/architecture intent,not measured,not measured
+AirDrop alternative Windows Linux,Broad comparisons,P3,docs/ALTERNATIVES.md,Broad competition; avoid unsupported equivalence,not measured,not measured
+LocalSend alternative,Broad comparisons,P3,docs/ALTERNATIVES.md,Broad competition; avoid unsupported equivalence,not measured,not measured
+PairDrop alternative,Broad comparisons,P3,docs/ALTERNATIVES.md,Broad competition; avoid unsupported equivalence,not measured,not measured
+Python http server password alternative,Broad comparisons,P3,docs/ALTERNATIVES.md,Broad competition; avoid unsupported equivalence,not measured,not measured
+copyparty read only alternative,Broad comparisons,P3,docs/ALTERNATIVES.md,Broad competition; avoid unsupported equivalence,not measured,not measured
+PC to iPhone Share GitHub,Brand,P1,README.md,Navigational after publication,not measured,not measured
+PC to iPhone Share download,Brand,P1,README.md,Navigational after publication,not measured,not measured
+PC to iPhone Share install,Brand,P1,README.md,Navigational after publication,not measured,not measured
+PC to iPhone Share Ubuntu,Brand,P1,README.md,Navigational after publication,not measured,not measured
+iPhone to PC uploads,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+internet file sharing links,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+file synchronization app,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+WiFi Direct file transfer,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+iOS file server app,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+32 bit Linux file server,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured
+AirDrop without WiFi,Outside scope,Exclude,none,Do not target unsupported product intent,not measured,not measured

@@ -1,0 +1,23 @@
+name: Feature or usability improvement
+description: Suggest a focused improvement to local folder downloads
+title: "[Idea]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What task is difficult?
+      description: Describe the workflow without private filenames, paths, passwords, addresses, or logs.
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+      description: Explain the outcome you want and any relevant supported platforms.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I excluded private data and credentials from this public report.
+          required: true

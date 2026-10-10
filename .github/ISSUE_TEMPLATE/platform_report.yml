@@ -1,0 +1,25 @@
+name: Platform validation result
+description: Share a sanitized native installation/download result
+title: "[Platform]: "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: OS version, architecture, and app version
+      placeholder: macOS 15, ARM64, v0.1.0-alpha.1
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What did you validate?
+      description: Record launch, certificate pairing, login, synthetic download, range/resume behavior, and shutdown. Mark VM/WSL tests clearly.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Safe public report
+      options:
+        - label: I used synthetic data and removed IP addresses, usernames, paths, passwords, tokens, and certificate fingerprints.
+          required: true

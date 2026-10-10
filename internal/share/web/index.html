@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#10201c"><title>PC to iPhone Share</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+  <main>
+    <header><a class="brand" href="/" aria-label="PC to iPhone Share home"><span class="logo">P</span><span>PC to iPhone<span class="brand-light"> Share</span></span></a><span class="badge"><i></i>Local Wi-Fi</span></header>
+    <section id="login" class="login-panel" hidden>
+      <div class="eyebrow">YOUR COMPUTER. YOUR FILES.</div><h1>A little closer<br>to your files.</h1><p class="intro">Open your shared folder and download what you need on your phone.</p>
+      <form id="login-form"><label for="password">Share password</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required maxlength="512"><button id="show-password" type="button" aria-label="Show password">Show</button></div><button class="primary" id="sign-in" type="submit">Unlock folder <span>→</span></button></form>
+      <p id="login-error" class="error" role="alert"></p>
+      <div class="security-note"><span>◈</span><p><strong>A private connection</strong><br>Encrypted transfers · Password protected · Read only</p></div>
+      <details><summary>First time on this iPhone?</summary><p>To remove the certificate warning, <a href="/install.mobileconfig">install this computer’s certificate profile</a>, then enable PC to iPhone Share in Settings → General → About → Certificate Trust Settings. Use this profile only when you are connected to your own Wi-Fi.</p></details>
+    </section>
+    <section id="browser" hidden>
+      <div class="folder-heading"><div><div class="eyebrow">YOUR SHARED FOLDER</div><h1 id="folder-name">Shared folder</h1></div><button id="logout" class="quiet">Lock <span>↗</span></button></div>
+      <p class="intro">Tap a file to download it to your device.</p>
+      <div class="toolbar"><div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Find a file in this folder" aria-label="Find a file in this folder"></div><button id="refresh" class="refresh" aria-label="Refresh folder">↻</button></div>
+      <nav id="breadcrumbs" aria-label="Folder path"></nav>
+      <div class="list-label"><span id="item-count">Files</span><span>SIZE</span></div>
+      <div id="files" aria-live="polite"></div><p id="browser-error" class="error" role="alert"></p>
+      <button id="load-more" class="quiet" hidden>Load more files</button><footer><span><i></i>Encrypted connection</span><span>Read-only access</span></footer>
+    </section>
+  </main>
+</body></html>
