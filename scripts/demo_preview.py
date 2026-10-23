@@ -13,6 +13,7 @@ ENTRIES = [
     {'name': 'Workshop notes.txt', 'directory': False, 'size': 12288, 'modified': '2026-01-01T12:00:00Z'},
     {'name': 'Reference', 'directory': True, 'size': 0, 'modified': '2026-01-01T12:00:00Z'},
 ]
+ENTRIES.sort(key=lambda entry: (not entry['directory'], entry['name'].lower()))
 
 
 class Demo(BaseHTTPRequestHandler):
@@ -37,7 +38,10 @@ class Demo(BaseHTTPRequestHandler):
         if path == '/api/state':
             return self.send(200, json.dumps({'folder':'Example shared folder','url':'https://your-computer:9443',
                 'password':'DEMO ONLY - not a real password','fingerprint':'DEMO - verify your real fingerprint locally',
-                'version':'0.1.0-alpha.1'}).encode())
+                'version':'0.2.0-alpha.1'}).encode())
+        if path == '/api/stats':
+            return self.send(200, json.dumps({'paused':False,'active':0,'completed':3,'bytes':12582912,
+                'sessions':1,'maxDownloads':4,'expiresAt':'0001-01-01T00:00:00Z'}).encode())
         names = {'/':'dashboard.html' if self.server.screen == 'dashboard' else 'index.html',
                  '/style.css':'style.css','/app.js':'app.js','/dashboard.js':'dashboard.js'}
         if path not in names:

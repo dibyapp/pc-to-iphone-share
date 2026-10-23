@@ -45,7 +45,7 @@ def check_issues(issues):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--version', default='0.1.0-alpha.1')
+    parser.add_argument('--version', default='0.2.0-alpha.1')
     parser.add_argument('--go', default=shutil.which('go'))
     parser.add_argument('--output', default='dist', help='empty output directory under dist/, release/, or artifacts/')
     args = parser.parse_args()

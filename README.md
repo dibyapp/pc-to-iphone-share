@@ -4,7 +4,7 @@
 
 Choose a folder, select your private network, pair your phone with the computer's local certificate, and sign in with a generated password. PC to iPhone Share streams read-only downloads directly over HTTPS.
 
-[Download v0.1.0-alpha.1](https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.1.0-alpha.1) · [Installation](docs/INSTALL.md) · [Certificate pairing](docs/CERTIFICATES.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+[Download v0.2.0-alpha.1](https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.2.0-alpha.1) · [Installation](docs/INSTALL.md) · [Certificate pairing](docs/CERTIFICATES.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
 
 > **Unsigned alpha.** Portable builds target Windows, macOS, and Linux x64/ARM64. Windows x64 and Ubuntu 24.04 x64 under WSL 2 have passed local runtime tests. Native CI covers every packaged architecture; physical phone/LAN checks and signing remain separate. First-time certificate pairing is manual. See the [validation matrix](docs/PLATFORMS.md) and [security boundaries](SECURITY.md).
 
@@ -12,15 +12,21 @@ Choose a folder, select your private network, pair your phone with the computer'
 
 *Real interface, synthetic screenshot fixture data. These are browser captures, not physical iPhone OS screenshots. No personal filenames, addresses, passwords, or certificates are shown.*
 
+## New in v0.2.0-alpha.1
+
+Find files across the current folder before pagination, filter by type, sort by name/size/date, and choose a page size. Select up to 64 files for one streamed ZIP, preview UTF-8 text, or calculate a file's SHA-256. A built-in speed test measures the local connection using synthetic data.
+
+The computer dashboard now shows in-memory transfer totals and offers pause/resume and sign-out-all controls. Optional expiry, concurrency limits, exclusion rules, and a setup check help keep temporary sharing predictable. See [all 15 additions, limits, and validation](docs/FEATURES.md).
+
 ## Download for your computer
 
 | Platform | Intel/AMD x64 | ARM64 |
 | --- | --- | --- |
-| Windows | [ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-windows-amd64.zip) | [ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-windows-arm64.zip) |
-| macOS | [Intel ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-macos-amd64.zip) | [Apple Silicon ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-macos-arm64.zip) |
-| Ubuntu / Linux | [TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz) | [TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-linux-arm64.tar.gz) |
+| Windows | [ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-windows-amd64.zip) | [ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-windows-arm64.zip) |
+| macOS | [Intel ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-macos-amd64.zip) | [Apple Silicon ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-macos-arm64.zip) |
+| Ubuntu / Linux | [TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz) | [TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-linux-arm64.tar.gz) |
 
-[SHA-256 checksums](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/SHA256SUMS) · [Allowlisted source ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-source.zip)
+[SHA-256 checksums](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/SHA256SUMS) · [Allowlisted source ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-source.zip)
 
 Extract before running. Windows includes `Start-PC-to-iPhone-Share.cmd`; macOS includes a `.command` launcher; Linux includes a shell launcher. Executables include the web assets and require no Node, Python, or Go runtime. Ubuntu, Debian, Linux Mint, Fedora, Arch, openSUSE, and Alpine use the matching Linux build; distro-specific validation is [documented](docs/LINUX.md). Binaries are unsigned and unnotarized; no Homebrew, winget, apt, or App Store package is published.
 

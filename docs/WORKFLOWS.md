@@ -25,6 +25,8 @@ Choose a folder containing the intended file; ensure the receiving device has en
 
 Copy only the intended files into a dedicated folder; do not select your home, Downloads root, private configuration, or source checkout. The app has no upload/delete/rename endpoints. Share only with devices you trust on the intended network; stop it afterwards. See [SECURITY.md](../SECURITY.md) for filesystem and local-administrator boundaries.
 
+Use `--check` to validate setup without starting listeners. For a short session, run with `--share-for 30m --max-downloads 2 --exclude '*.key' --exclude 'private'`. These options apply only to that run. In the phone browser, search/filter/sort, select files for a ZIP, preview text or compare SHA-256. On the computer, pause new access or sign out devices from the dashboard. [All controls and limits](FEATURES.md).
+
 ## Develop without touching an existing share
 
 ```sh

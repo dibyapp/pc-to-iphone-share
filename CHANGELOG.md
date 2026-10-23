@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.2.0-alpha.1 — sharing controls and faster file selection
+
+1. Server-side, case-insensitive search of the current folder before pagination.
+2. File-type filters, retaining navigable matching folders.
+3. Name, size and modification-date sorting in both directions, folders first.
+4. Configurable page size: UI choices 50/200/500; API accepts 1–500.
+5. Multi-file streamed ZIP downloads: up to 64 files and 4 GiB, without recompression.
+6. Escaped UTF-8 text previews bounded to 256 KiB.
+7. SHA-256 file checksums up to 1 GiB with a 30-second calculation budget.
+8. Local connection speed test using 16 MiB of synthetic data; no external service.
+9. Dashboard transfer counters and active-session totals, held only in memory.
+10. Pause/resume of new authenticated file access from the local dashboard.
+11. Revoke all signed-in sessions without restarting the process.
+12. Optional automatic sharing expiry with `--share-for` (maximum 24h).
+13. Configurable simultaneous transfer/checksum/speed limit with `--max-downloads`.
+14. Repeated, case-insensitive filename exclusion rules with `--exclude`.
+15. Setup validation without starting listeners using `--check`.
+
+Also: reject special files before opening them; use nonblocking Unix opens against FIFO swaps;
+validate query inputs; keep client text out of HTML; update the Go build patch to 1.26.10.
+No cloud service, automatic certificate trust, upload endpoint, background service or website deployment added.
+See [feature boundaries and validation](docs/FEATURES.md). Builds remain unsigned and unnotarized.
+
 ## 0.1.0-alpha.1 — unsigned alpha
 
 - Portable Go app and embedded mobile file browser.

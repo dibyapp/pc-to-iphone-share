@@ -57,11 +57,11 @@ def footer(prefix=''):
     return f'<footer class="wrap"><a class="brand" href="{prefix}index.html">PC to iPhone Share</a><p>One folder. Your local network. Open source.</p><p>Unsigned alpha · Portable builds are unsigned · No independent security audit</p></footer></body></html>'
 
 def build_support_pages():
-    base = 'https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/'
+    base = 'https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/'
     rows = []
     for label, os_name in [('Windows','windows'),('macOS','macos'),('Ubuntu / Linux','linux')]:
         suffix = 'tar.gz' if os_name == 'linux' else 'zip'
-        links = [f'<a href="{base}pc-to-iphone-share-0.1.0-alpha.1-{os_name}-{arch}.{suffix}">{text}</a>'
+        links = [f'<a href="{base}pc-to-iphone-share-0.2.0-alpha.1-{os_name}-{arch}.{suffix}">{text}</a>'
                  for arch,text in [('amd64','Intel Mac' if os_name == 'macos' else 'Intel/AMD x64'),('arm64','Apple Silicon' if os_name == 'macos' else 'ARM64')]]
         rows.append(f'<tr><th>{label}</th><td>{links[0]}</td><td>{links[1]}</td></tr>')
     body = '<main class="wrap article"><p class="eyebrow">DOWNLOAD ON YOUR COMPUTER</p><h1>Install once.<br>Download on your phone.</h1><p class="lede">Choose your desktop OS and CPU. The phone uses its browser; no mobile app is installed. This is an unsigned alpha with manual certificate pairing.</p>'
@@ -76,7 +76,7 @@ def build_support_pages():
         ('The certificate could not be verified','Trust is per receiving device. Verify the fingerprint using the local computer dashboard through a trusted channel, install only that computer\'s public CA/profile, and enable full trust on iPhone/iPad. Trusting the certificate on Windows does not trust it on an iPhone. The app does not turn off certificate verification. See the certificate guide for supported manual steps.'),
         ('Safari says cross-site requests are blocked','Open the exact phone URL directly in a fresh Safari tab and sign in there. Use one scheme, hostname/address, and port for the session. Do not embed the page in another site or reuse a dashboard URL. Protected APIs intentionally reject cross-site requests; disabling Safari privacy settings is not the documented fix.'),
         ('The executable will not start','Choose the correct CPU/OS archive and extract it before running. On Linux, check execute permission and noexec mounts. Unsigned Windows/macOS binaries may be blocked by OS protections; use an inspected source build until signing is available. Old or unsupported operating systems and 32-bit hosts are outside the packaged targets.'),
-        ('A download stops or a file is missing','Keep the computer awake and the app running. Check phone storage and the browser download manager. Resume depends on the client despite HTTP range support. Search filters loaded entries: use Load more files for additional pages. Dot paths, symlinks/junctions, and invalid names are intentionally excluded; directories over 10,000 entries should be split.'),
+        ('A download stops or a file is missing','Keep the computer awake and the app running. Check phone storage and the browser download manager. Resume depends on the client despite HTTP range support. Search runs across the current folder before pagination, up to the 10,000-entry scan cap. Check file-type filters, launch-time exclusions, pause state and the sharing deadline. Dot paths, symlinks/junctions, special files and invalid names are intentionally excluded.'),
         ('Still stuck?','Report the app version, OS/CPU, sanitized error message, and synthetic reproduction steps. Never post private addresses, usernames, paths, filenames, passwords, dashboard URLs/tokens, config, keys, or certificate fingerprints in a public issue.'),
     ]
     for title, explanation in sections:
@@ -89,8 +89,8 @@ def build():
     SITE.mkdir(exist_ok=True); (SITE / 'guides').mkdir(exist_ok=True)
     schema = {'@context': 'https://schema.org', '@type': 'SoftwareApplication', 'name': 'PC to iPhone Share',
               'applicationCategory': 'UtilitiesApplication', 'operatingSystem': 'Windows 10+; macOS 12+; Linux',
-              'softwareVersion': '0.1.0-alpha.1', 'url': 'https://github.com/dibyapp/pc-to-iphone-share',
-              'downloadUrl': 'https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.1.0-alpha.1',
+              'softwareVersion': '0.2.0-alpha.1', 'url': 'https://github.com/dibyapp/pc-to-iphone-share',
+              'downloadUrl': 'https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.2.0-alpha.1',
               'author': {'@type':'Person','name':'dibyapp','url':'https://github.com/dibyapp'}, 'license': 'https://opensource.org/license/mit',
               'description': 'Password-protected local computer-to-phone file downloads over HTTPS. No cloud uploads, accounts, or mobile app required.'}
     faq_schema = {'@context': 'https://schema.org', '@type': 'FAQPage',

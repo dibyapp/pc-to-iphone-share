@@ -15,10 +15,16 @@
       <div class="folder-heading"><div><div class="eyebrow">YOUR SHARED FOLDER</div><h1 id="folder-name">Shared folder</h1></div><button id="logout" class="quiet">Lock <span>↗</span></button></div>
       <p class="intro">Tap a file to download it to your device.</p>
       <div class="toolbar"><div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Find a file in this folder" aria-label="Find a file in this folder"></div><button id="refresh" class="refresh" aria-label="Refresh folder">↻</button></div>
+      <div class="filters"><label>File type<select id="file-type"><option value="all">All files</option><option value="folders">Folders</option><option value="images">Images</option><option value="videos">Videos</option><option value="audio">Audio</option><option value="documents">Documents</option><option value="archives">Archives</option><option value="other">Other files</option></select></label><label>Sort<select id="sort"><option value="name">Name</option><option value="size">Size</option><option value="modified">Modified</option></select></label><label>Order<select id="direction"><option value="asc">Ascending</option><option value="desc">Descending</option></select></label><label>Page size<select id="page-size"><option>50</option><option selected>200</option><option>500</option></select></label></div>
       <nav id="breadcrumbs" aria-label="Folder path"></nav>
+      <div class="selection"><button id="select-page" class="quiet">Select shown files</button><button id="clear-selection" class="quiet">Clear</button><span id="selection-count" aria-live="polite">0 selected</span><a id="zip-download" class="quiet" download="shared-files.zip" hidden>Download ZIP</a></div>
+      <p id="expiry" class="hint"></p>
       <div class="list-label"><span id="item-count">Files</span><span>SIZE</span></div>
       <div id="files" aria-live="polite"></div><p id="browser-error" class="error" role="alert"></p>
-      <button id="load-more" class="quiet" hidden>Load more files</button><footer><span><i></i>Encrypted connection</span><span>Read-only access</span></footer>
+      <button id="load-more" class="quiet" hidden>Load more files</button>
+      <section id="details-panel" class="detail-panel" hidden><div class="selection"><strong id="detail-title"></strong><button id="close-details" class="quiet">Close</button></div><pre id="detail-text"></pre></section>
+      <details class="speed-panel"><summary>Check local transfer speed</summary><p>Transfers 16 MiB of synthetic data over this connection. Uses no personal files or internet speed service.</p><button id="speed-test" class="quiet">Run speed test</button><p id="speed-result" role="status"></p></details>
+      <footer><span><i></i>Encrypted connection</span><span>Read-only access</span></footer>
     </section>
   </main>
 </body></html>

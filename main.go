@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var version = "0.1.0-alpha.1"
+var version = "0.2.0-alpha.1"
 
 func main() {
 	if err := share.Run(os.Args[1:], version, os.Stdin, os.Stdout); err != nil {

@@ -16,7 +16,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -45,16 +44,36 @@ type App struct {
 	sessions     map[[32]byte]session
 	attempts     map[string]attempt
 	logins       chan struct{}
+	options      Options
+	transfers    chan struct{}
+	started      time.Time
+	expires      time.Time
+	paused       bool
+	active       int
+	completed    uint64
+	sent         uint64
+	speedUntil   time.Time
 }
 
 func NewApp(c Config, certificates Certificates) (*App, error) {
+	return NewAppWithOptions(c, certificates, Options{MaxDownloads: 4})
+}
+
+func NewAppWithOptions(c Config, certificates Certificates, options Options) (*App, error) {
+	if err := options.validate(); err != nil {
+		return nil, err
+	}
 	root, err := os.OpenRoot(c.Folder)
 	if err != nil {
 		return nil, errors.New("cannot open the shared folder")
 	}
 	ip := net.ParseIP(c.Bind).To4()
 	mask := net.CIDRMask(c.Prefix, 32)
-	return &App{config: c, certificates: certificates, root: root, network: &net.IPNet{IP: ip.Mask(mask), Mask: mask}, sessions: make(map[[32]byte]session), attempts: make(map[string]attempt), logins: make(chan struct{}, 2)}, nil
+	a := &App{config: c, certificates: certificates, root: root, network: &net.IPNet{IP: ip.Mask(mask), Mask: mask}, sessions: make(map[[32]byte]session), attempts: make(map[string]attempt), logins: make(chan struct{}, 2), options: options, transfers: make(chan struct{}, options.MaxDownloads), started: time.Now()}
+	if options.ShareFor > 0 {
+		a.expires = a.started.Add(options.ShareFor)
+	}
+	return a, nil
 }
 
 func (a *App) Close() error    { return a.root.Close() }
@@ -143,6 +162,10 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+	if !a.expires.IsZero() && !time.Now().Before(a.expires) {
+		deny(w, 410, "This sharing window has expired.")
+		return
+	}
 	if route == "/api/login" && r.Method == "POST" {
 		a.login(w, r, ipText)
 		return
@@ -151,6 +174,16 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		deny(w, 401, "Please sign in.")
 		return
+	}
+	if route != "/api/logout" {
+		a.mu.Lock()
+		paused := a.paused
+		a.mu.Unlock()
+		if paused {
+			w.Header().Set("Retry-After", "5")
+			deny(w, 503, "Sharing is paused by the computer. Try again shortly.")
+			return
+		}
 	}
 	switch {
 	case route == "/api/logout" && r.Method == "POST":
@@ -163,6 +196,14 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		a.list(w, r)
 	case route == "/download" && read:
 		a.download(w, r)
+	case route == "/download.zip" && read:
+		a.downloadZIP(w, r)
+	case route == "/api/preview" && r.Method == "GET":
+		a.preview(w, r)
+	case route == "/api/checksum" && r.Method == "GET":
+		a.checksum(w, r)
+	case route == "/api/speed-test" && read:
+		a.speedTest(w, r)
 	default:
 		deny(w, 404, "Not found.")
 	}
@@ -313,6 +354,9 @@ func (a *App) open(name string) (*os.File, error) {
 	if err != nil {
 		return nil, err
 	}
+	if a.excluded(name) {
+		return nil, errors.New("excluded path")
+	}
 	// Reject links for clarity; os.Root also enforces containment when directories
 	// are renamed or swapped between this check and the open operation.
 	current := ""
@@ -326,9 +370,12 @@ func (a *App) open(name string) (*os.File, error) {
 			if info.Mode()&os.ModeSymlink != 0 {
 				return nil, errors.New("linked files are not shared")
 			}
+			if !info.Mode().IsRegular() && !info.IsDir() {
+				return nil, errors.New("special files are not shared")
+			}
 		}
 	}
-	return a.root.Open(relative)
+	return openRootRead(a.root, relative)
 }
 
 type Entry struct {
@@ -351,8 +398,8 @@ func (a *App) list(w http.ResponseWriter, r *http.Request) {
 		deny(w, 400, "This is not a folder.")
 		return
 	}
-	offset, _ := strconv.Atoi(r.URL.Query().Get("offset"))
-	if offset < 0 || offset > 10000 {
+	offset, limit, query, kind, order, descending, err := listOptions(r)
+	if err != nil {
 		deny(w, 400, "Invalid page.")
 		return
 	}
@@ -378,21 +425,17 @@ func (a *App) list(w http.ResponseWriter, r *http.Request) {
 		}
 		entries = append(entries, Entry{item.Name(), stat.IsDir(), stat.Size(), stat.ModTime()})
 	}
-	sort.Slice(entries, func(i, j int) bool {
-		if entries[i].Directory != entries[j].Directory {
-			return entries[i].Directory
-		}
-		return strings.ToLower(entries[i].Name) < strings.ToLower(entries[j].Name)
-	})
+	entries = filterEntries(entries, query, kind)
+	sortEntries(entries, order, descending)
 	total := len(entries)
 	if offset > total {
 		offset = total
 	}
-	end := offset + 200
+	end := offset + limit
 	if end > total {
 		end = total
 	}
-	reply(w, 200, map[string]any{"name": filepath.Base(a.config.Folder), "path": name, "entries": entries[offset:end], "total": total, "nextOffset": end, "hasMore": end < total, "truncated": truncated})
+	reply(w, 200, map[string]any{"name": filepath.Base(a.config.Folder), "path": name, "entries": entries[offset:end], "total": total, "nextOffset": end, "hasMore": end < total, "truncated": truncated, "expiresAt": a.expires})
 }
 
 func (a *App) download(w http.ResponseWriter, r *http.Request) {
@@ -408,9 +451,18 @@ func (a *App) download(w http.ResponseWriter, r *http.Request) {
 		deny(w, 400, "Only regular files can be downloaded.")
 		return
 	}
+	finish, ok := a.beginTransfer(w, r)
+	if !ok {
+		return
+	}
+	counter := &transferWriter{ResponseWriter: w}
+	defer func() {
+		expected, err := strconv.ParseUint(w.Header().Get("Content-Length"), 10, 64)
+		finish(counter.bytes, !counter.failed && err == nil && counter.bytes == expected && (counter.status == 200 || counter.status == 206))
+	}()
 	w.Header().Set("Content-Type", "application/octet-stream")
 	w.Header().Set("Content-Disposition", mime.FormatMediaType("attachment", map[string]string{"filename": path.Base(name)}))
-	http.ServeContent(w, r, path.Base(name), stat.ModTime(), file)
+	http.ServeContent(counter, r, path.Base(name), stat.ModTime(), file)
 }
 
 // A connection cap covers TLS handshakes and slow clients without buffering file downloads.

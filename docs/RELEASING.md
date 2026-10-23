@@ -1,6 +1,6 @@
 # Local release preparation — no publishing
 
-Version 0.1.0-alpha.1 is prepared locally. Nothing in this procedure pushes a repository, creates a hosted release, uploads files, or deploys the content site.
+Version 0.2.0-alpha.1 is prepared locally. Nothing in this procedure pushes a repository, creates a hosted release, uploads files, or deploys the content site.
 
 ## Reproducible inputs and private-data boundaries
 
@@ -16,7 +16,7 @@ python scripts/test_privacy.py
 python scripts/test_install.py
 python scripts/test_smoke.py
 python scripts/test_site.py
-python scripts/build_release.py --version 0.1.0-alpha.1
+python scripts/build_release.py --version 0.2.0-alpha.1
 python scripts/privacy_check.py --artifacts dist
 python scripts/smoke_binary.py --build
 ```

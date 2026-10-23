@@ -48,7 +48,7 @@ class InstallerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             destination=Path(directory)/'new-installation'
             digest=hashlib.sha256(b'expected archive').hexdigest()
-            manifest=(digest+'  pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz\n').encode()
+            manifest=(digest+'  pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz\n').encode()
             with patch('install.target',return_value=('linux','amd64')), \
                  patch('install.fetch',side_effect=[manifest,b'corrupt archive']), \
                  patch('sys.argv',['install.py','--directory',str(destination)]):

@@ -1,7 +1,7 @@
 # Alpha preparation and publication record
 
 Repository: https://github.com/dibyapp/pc-to-iphone-share
-Release: https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.1.0-alpha.1
+Initial release: https://github.com/dibyapp/pc-to-iphone-share/releases/tag/v0.1.0-alpha.1
 Author and maintainer: dibyapp, using a public GitHub noreply identity. No co-author trailers are added.
 
 ## Verification before the first push

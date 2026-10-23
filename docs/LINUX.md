@@ -19,7 +19,7 @@ Check the CPU with `uname -m`: `x86_64` means amd64; `aarch64` means arm64. Down
 For the current development archive:
 
 ```sh
-tar -xzf pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz
+tar -xzf pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz
 ./pc-to-iphone-share --version
 ./pc-to-iphone-share
 ```
@@ -42,7 +42,7 @@ Contributors with Python 3 can test the actual matching Linux archive:
 
 ```sh
 python3 scripts/test_smoke.py
-python3 scripts/smoke_binary.py dist/pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz
+python3 scripts/smoke_binary.py dist/pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz
 ```
 
 This creates temporary synthetic files and certificate state, listens only on loopback, verifies TLS/login/download/range behavior, and stops only its own process. It does not use an existing share or production password. Physical-device certificate pairing, LAN access, and sleep/wake checks remain separate checks in [PLATFORMS.md](PLATFORMS.md).

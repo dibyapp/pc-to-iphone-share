@@ -17,6 +17,9 @@ A trusted user runs the app on a trusted computer, chooses one folder, and makes
 - A loopback-only management dashboard with a random bearer token delivered in the URL fragment. It provides no unauthenticated access to the password or stop control.
 - Unix private state uses a directory mode of 0700 and files of 0600. Windows removes inherited permissions and grants the current account and SYSTEM full access. Existing explicit ACL entries on a user-selected state directory should be reviewed; choose a newly created dedicated directory.
 - A bounded number of connections, password computations, active sessions, failed-attempt records, and listed directory entries. Downloads stream instead of being loaded into memory.
+- Configurable shared operation slots for downloads, ZIPs, checksums and speed tests. Exclusion patterns apply at every path component to all file endpoints. Unix nonblocking opens and special-file checks avoid serving FIFOs/devices.
+- UTF-8 text previews use JSON and browser text nodes, never an HTML execution context. ZIP selections are confined regular files; checksums and synthetic tests have separate size/time/rate limits. See [feature boundaries](docs/FEATURES.md).
+- Local authenticated dashboard controls pause new access and revoke sessions. Optional expiry denies new private requests at the deadline and shuts down with up to 30 seconds for active streams. None of these controls retroactively deletes a downloaded copy.
 
 ## Boundaries and residual risks
 
@@ -28,7 +31,7 @@ A trusted user runs the app on a trusted computer, chooses one folder, and makes
 
 **Folder contents:** Hard links and mounted filesystems are not the same as symlinks. A regular file reachable within the selected folder is shareable even if another name or mount also refers to its data. Choose a dedicated folder populated with files you intentionally want to share. Non-dot hidden files may appear; use a clean share folder. Rejecting links is not a substitute for reviewing folder contents.
 
-**Availability:** Peers can exhaust login limits or consume bandwidth. Limits reduce resource abuse; they do not provide denial-of-service immunity. No application-level transfer-size limit is imposed. A single directory scan stops at 10,000 entries.
+**Availability:** Peers can exhaust login limits or consume bandwidth and disk I/O. Limits reduce resource abuse; they do not provide denial-of-service immunity. Individual downloads have no application file-size cap; ZIP selections are limited to 64 files/4 GiB, browser checksums to 1 GiB/30 seconds, text previews to 256 KiB, and synthetic speed tests to 16 MiB/one per 30 seconds for the share. A directory scan stops at 10,000 entries. Pause/revocation affect new requests; already authorized requests can finish. Revoking sessions leaves the password unchanged. Exclusions apply only when passed at launch and do not detect secrets automatically.
 
 **Certificates and signing:** Local CA certificates expire after five years; server certificates are regenerated at each start and expire after 90 days. Restart a long-running instance before its server certificate expires. Portable builds are currently unsigned and unnotarized. SHA-256 checksums detect corruption but do not prove publisher identity.
 
@@ -38,7 +41,7 @@ A trusted user runs the app on a trusted computer, chooses one folder, and makes
 
 Do not post passwords, private keys, real file contents, local configuration, or personal network details in a public issue. Use synthetic reproduction steps.
 
-Use [GitHub private vulnerability reporting](https://github.com/dibyapp/pc-to-iphone-share/security/advisories/new). If that private channel is unavailable, hold sensitive details and request a reporting channel with only a redacted, non-sensitive description. Never attach real configuration, passwords, keys, certificate material, addresses, or personal files. The initial alpha is the only current version; fixes should be validated before assuming protection.
+Use [GitHub private vulnerability reporting](https://github.com/dibyapp/pc-to-iphone-share/security/advisories/new). If that private channel is unavailable, hold sensitive details and request a reporting channel with only a redacted, non-sensitive description. Never attach real configuration, passwords, keys, certificate material, addresses, or personal files. The current version is an alpha; fixes should be validated before assuming protection.
 
 ## Review priorities
 

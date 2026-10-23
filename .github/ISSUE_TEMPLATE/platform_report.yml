@@ -6,7 +6,7 @@ body:
     id: environment
     attributes:
       label: OS version, architecture, and app version
-      placeholder: macOS 15, ARM64, v0.1.0-alpha.1
+      placeholder: macOS 15, ARM64, v0.2.0-alpha.1
     validations:
       required: true
   - type: textarea

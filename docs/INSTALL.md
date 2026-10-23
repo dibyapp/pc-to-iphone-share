@@ -1,17 +1,17 @@
 # Install PC to iPhone Share on Windows, macOS, or Linux
 
-Current release: **v0.1.0-alpha.1**, an unsigned alpha. Binaries are portable console applications, not native GUI installers. You need the app only on the computer; the phone uses its browser. First-time local-certificate pairing is manual.
+Current release: **v0.2.0-alpha.1**, an unsigned alpha. Binaries are portable console applications, not native GUI installers. You need the app only on the computer; the phone uses its browser. First-time local-certificate pairing is manual.
 
 ## 1. Choose your computer's build
 
 | Computer | Download | Start after extraction |
 | --- | --- | --- |
-| Windows, most Intel/AMD PCs | [Windows x64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-windows-amd64.zip) | Double-click `Start-PC-to-iPhone-Share.cmd` |
-| Windows ARM PC | [Windows ARM64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-windows-arm64.zip) | Double-click `Start-PC-to-iPhone-Share.cmd` |
-| Mac with Apple Silicon | [macOS ARM64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-macos-arm64.zip) | Run `./pc-to-iphone-share` in Terminal |
-| Mac with Intel processor | [macOS Intel ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-macos-amd64.zip) | Run `./pc-to-iphone-share` in Terminal |
-| Ubuntu/Linux, Intel/AMD x64 | [Linux x64 TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz) | Run `./pc-to-iphone-share` in a terminal |
-| Ubuntu/Linux, ARM64 | [Linux ARM64 TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/pc-to-iphone-share-0.1.0-alpha.1-linux-arm64.tar.gz) | Run `./pc-to-iphone-share` in a terminal |
+| Windows, most Intel/AMD PCs | [Windows x64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-windows-amd64.zip) | Double-click `Start-PC-to-iPhone-Share.cmd` |
+| Windows ARM PC | [Windows ARM64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-windows-arm64.zip) | Double-click `Start-PC-to-iPhone-Share.cmd` |
+| Mac with Apple Silicon | [macOS ARM64 ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-macos-arm64.zip) | Run `./pc-to-iphone-share` in Terminal |
+| Mac with Intel processor | [macOS Intel ZIP](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-macos-amd64.zip) | Run `./pc-to-iphone-share` in Terminal |
+| Ubuntu/Linux, Intel/AMD x64 | [Linux x64 TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz) | Run `./pc-to-iphone-share` in a terminal |
+| Ubuntu/Linux, ARM64 | [Linux ARM64 TAR.GZ](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/pc-to-iphone-share-0.2.0-alpha.1-linux-arm64.tar.gz) | Run `./pc-to-iphone-share` in a terminal |
 
 Download on your **computer**, extract into its own app folder, and keep it outside the folder you will share. The binary includes all app assets; Python/Node/Go are not required to run it. Linux distributions use the same Linux archive for the CPU; [Linux/Ubuntu details](LINUX.md). Native test results and runtime baselines are in [PLATFORMS.md](PLATFORMS.md).
 
@@ -19,25 +19,25 @@ These binaries are not signed or notarized. macOS/Windows may block unsigned dow
 
 ## 2. Verify the download
 
-Get [SHA256SUMS](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.1.0-alpha.1/SHA256SUMS) from the same release and compare your archive's digest with the exact filename in it.
+Get [SHA256SUMS](https://github.com/dibyapp/pc-to-iphone-share/releases/download/v0.2.0-alpha.1/SHA256SUMS) from the same release and compare your archive's digest with the exact filename in it.
 
 Windows PowerShell, in the download directory:
 
 ```powershell
-Get-FileHash .\pc-to-iphone-share-0.1.0-alpha.1-windows-amd64.zip -Algorithm SHA256
+Get-FileHash .\pc-to-iphone-share-0.2.0-alpha.1-windows-amd64.zip -Algorithm SHA256
 ```
 
 macOS:
 
 ```sh
-shasum -a 256 pc-to-iphone-share-0.1.0-alpha.1-macos-arm64.zip
+shasum -a 256 pc-to-iphone-share-0.2.0-alpha.1-macos-arm64.zip
 ```
 
 Linux:
 
 ```sh
-sha256sum pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz
-tar -xzf pc-to-iphone-share-0.1.0-alpha.1-linux-amd64.tar.gz
+sha256sum pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz
+tar -xzf pc-to-iphone-share-0.2.0-alpha.1-linux-amd64.tar.gz
 ./pc-to-iphone-share --version
 ```
 
@@ -77,7 +77,7 @@ go build -trimpath -buildvcs=false -o pc-to-iphone-share .
 ./pc-to-iphone-share --help
 ```
 
-On Windows build with `-o pc-to-iphone-share.exe`, then run `.\pc-to-iphone-share.exe`. Contributors can run the isolated synthetic smoke checks in [WORKFLOWS.md](WORKFLOWS.md). Experienced Go users can use `go install github.com/dibyapp/pc-to-iphone-share@v0.1.0-alpha.1`; the command downloads/builds code and places the binary in Go's configured binary directory.
+On Windows build with `-o pc-to-iphone-share.exe`, then run `.\pc-to-iphone-share.exe`. Contributors can run the isolated synthetic smoke checks in [WORKFLOWS.md](WORKFLOWS.md). Experienced Go users can use `go install github.com/dibyapp/pc-to-iphone-share@v0.2.0-alpha.1`; the command downloads/builds code and places the binary in Go's configured binary directory.
 
 ## Update and uninstall
 

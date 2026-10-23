@@ -13,7 +13,7 @@ import urllib.request
 import zipfile
 
 REPOSITORY = 'dibyapp/pc-to-iphone-share'
-VERSION = '0.1.0-alpha.1'
+VERSION = '0.2.0-alpha.1'
 
 
 def target(system=None, machine=None):

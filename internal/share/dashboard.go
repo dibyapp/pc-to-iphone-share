@@ -51,6 +51,18 @@ func (d *Dashboard) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "GET" && r.URL.Path == "/api/state":
 		reply(w, 200, map[string]any{"url": d.App.Origin(), "folder": filepath.Base(d.App.config.Folder), "password": d.Password, "fingerprint": d.App.certificates.Fingerprint, "version": d.Version, "profileUrl": d.App.Origin() + "/install.mobileconfig", "port": strconv.Itoa(d.App.config.Port)})
+	case r.Method == "GET" && r.URL.Path == "/api/stats":
+		reply(w, 200, d.App.statistics())
+	case r.Method == "POST" && (r.URL.Path == "/api/pause" || r.URL.Path == "/api/resume"):
+		d.App.mu.Lock()
+		d.App.paused = r.URL.Path == "/api/pause"
+		d.App.mu.Unlock()
+		reply(w, 200, map[string]bool{"ok": true})
+	case r.Method == "POST" && r.URL.Path == "/api/revoke":
+		d.App.mu.Lock()
+		clear(d.App.sessions)
+		d.App.mu.Unlock()
+		reply(w, 200, map[string]bool{"ok": true})
 	case r.Method == "GET" && r.URL.Path == "/api/profile":
 		w.Header().Set("Content-Type", "application/x-apple-aspen-config")
 		w.Header().Set("Content-Disposition", "attachment; filename=PC-to-iPhone-Share.mobileconfig")

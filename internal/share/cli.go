@@ -28,6 +28,11 @@ func Run(args []string, version string, input io.Reader, output io.Writer) error
 	reset := flags.Bool("reset-password", false, "generate a new password and invalidate sessions on restart")
 	showVersion := flags.Bool("version", false, "print the version and exit")
 	loopback := flags.Bool("loopback-only", false, "isolated local testing; phone access is disabled")
+	check := flags.Bool("check", false, "validate folder, settings and network without starting servers")
+	shareFor := flags.Duration("share-for", 0, "automatically stop after a duration, e.g. 30m (maximum 24h)")
+	maxDownloads := flags.Int("max-downloads", 4, "maximum concurrent file/ZIP/checksum/speed operations (1-16)")
+	var excludes stringList
+	flags.Var(&excludes, "exclude", "case-insensitive filename glob to hide at every depth; repeat as needed")
 	if err := flags.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
@@ -40,6 +45,10 @@ func Run(args []string, version string, input io.Reader, output io.Writer) error
 	if *showVersion {
 		fmt.Fprintln(output, "PC to iPhone Share", version)
 		return nil
+	}
+	options := Options{MaxDownloads: *maxDownloads, ShareFor: *shareFor, Exclude: excludes}
+	if err := options.validate(); err != nil {
+		return err
 	}
 	if *state == "" {
 		dir, err := os.UserConfigDir()
@@ -143,11 +152,23 @@ func Run(args []string, version string, input io.Reader, output io.Writer) error
 	if err = validateConfig(config, *state, *loopback); err != nil {
 		return err
 	}
+	if *check {
+		f, err := os.Open(config.Folder)
+		if err != nil {
+			return errors.New("folder is not readable")
+		}
+		defer f.Close()
+		if _, err = f.Readdirnames(1); err != nil && err != io.EOF {
+			return errors.New("folder is not readable")
+		}
+		fmt.Fprintln(output, "Setup checks passed: folder readable, private settings separated, selected interface valid. No servers started. Firewall reachability and phone trust still require a connection test.")
+		return nil
+	}
 	certificates, err := ensureCertificates(*state, config.Bind)
 	if err != nil {
 		return err
 	}
-	app, err := NewApp(config, certificates)
+	app, err := NewAppWithOptions(config, certificates, options)
 	if err != nil {
 		return err
 	}
@@ -185,9 +206,17 @@ func Run(args []string, version string, input io.Reader, output io.Writer) error
 	fmt.Fprintln(output, "Keep this window open. Press Ctrl+C to stop sharing. No public hosting, router changes, or telemetry.")
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
+	var expiry <-chan time.Time
+	if *shareFor > 0 {
+		timer := time.NewTimer(time.Until(app.expires))
+		defer timer.Stop()
+		expiry = timer.C
+	}
 	select {
 	case <-ctx.Done():
 	case <-stop:
+	case <-expiry:
+		fmt.Fprintln(output, "Sharing window expired; stopping new access.")
 	case err := <-failures:
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
 			return errors.New("a local server stopped unexpectedly")
@@ -203,3 +232,8 @@ func Run(args []string, version string, input io.Reader, output io.Writer) error
 	fmt.Fprintln(output, "Sharing stopped.")
 	return nil
 }
+
+type stringList []string
+
+func (s *stringList) String() string         { return strings.Join(*s, ", ") }
+func (s *stringList) Set(value string) error { *s = append(*s, value); return nil }
